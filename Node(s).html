@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Node(s)</title>
+    <style>
+        .header {
+            text-align: center;
+        }
+
+        .content {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .footer {
+            text-align: center;
+        }
+
+        #code {
+            resize: none;
+        }
+
+        .main {
+            border: 1px solid #000;
+            width: 60%;
+            margin: 0 auto;
+            padding-bottom: 5%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <div class="header">
+            <h1>达芬奇Fusion内部节点成组 v0.1</h1>
+            <h3>长安常安</h3>
+            <p>说明：请点击下方按钮打开setting文件，本程序会自动解析文件，点击下方代码区即可复制源码(请允许本网页访问剪切板)，在达芬奇Fusion页面中粘贴即可</p>
+            <p>原理：替换setting文件中的"MacroOperator"为"GroupOperator"即可</p>
+        </div>
+        <hr>
+        <div class="content">
+            <input type="file" name="" id="setting_file" value="请打开settings文件">
+            <br>
+            <br>
+            <textarea name="" id="code" cols="80" rows="20" readonly></textarea>
+        </div>
+
+    </div>
+    <div class="footer">
+        <p>&copy;&nbsp;<strong>本方法来源于<a
+                    href="https://space.bilibili.com/33382000">Vicco</a></strong>，制作By紫火,本工具可保存网页离线使用</p>
+    </div>
+</body>
+<script>
+
+    document.getElementById("setting_file").addEventListener("change", function () {
+        var reader = new FileReader();
+        var file = this.files[0];
+        reader.onload = function () {
+            console.log(file);
+            if (file.name.split(".").pop().toLowerCase() != "setting") {
+                alert("请上传setting文件！")
+            }
+            else {
+                content = this.result;
+                content = content.replace("MacroOperator", "GroupOperator");
+                document.getElementById("code").value = content;
+            }
+
+        }
+        reader.readAsText(file);
+    })
+
+    document.getElementById("code").addEventListener("click", function () {
+        ta = document.getElementById("code");
+        if (ta.value != "") {
+            ta.select();
+            document.execCommand("Copy");
+            alert("已复制修改后的源码，请在达芬奇Fusion中粘贴");
+        }
+
+    })
+</script>
+
+</html>
